@@ -19,3 +19,17 @@ class TestDriver:
 
         assert exito, f"Fallo: {resultado} != {esperado}"
         return f"✓ {metodo}: OK"
+    
+    def generar_reporte(self):
+        """Genera reporte de todas las pruebas ejecutadas"""
+        total = len(self.resultados)
+        exitosas = sum(1 for r in self.resultados if r['exito'])
+        
+        print(f"\n=== REPORTE DE PRUEBAS ===")
+        print(f"Total pruebas: {total}")
+        print(f"Exitosas: {exitosas}")
+        print(f"Fallidas: {total - exitosas}")
+        
+        for resultado in self.resultados:
+            estado = "✓" if resultado['exito'] else "✗"
+            print(f"{estado} {resultado['metodo']}: {resultado['resultado']} (esperado: {resultado['esperado']})")
